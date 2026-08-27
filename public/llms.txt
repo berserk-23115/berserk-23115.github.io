@@ -1,0 +1,9 @@
+# Anushk Kumar
+
+Portfolio for Anushk Kumar, a Computer Science and Engineering undergraduate at IIIT Delhi. His public work explores applied AI, usable security, systems, GPU programming, and open source.
+
+Canonical URL: https://berserk-23115.github.io
+GitHub: https://github.com/berserk-23115
+LinkedIn: https://www.linkedin.com/in/anushk-kumar-a0b7b61ba
+
+The homepage contains verified profile details, selected public repositories, technical stack, education, and links to the canonical source repositories.
