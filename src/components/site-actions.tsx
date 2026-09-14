@@ -11,7 +11,9 @@ type Action = { id: string; label: string; keywords: string[]; auxiliaryData: { 
 export function SiteActions() {
   const [isOpen, setIsOpen] = useState(false);
   const actions = useMemo<Action[]>(() => [
-    { id: 'projects', label: 'Jump to selected projects', keywords: ['work', 'repositories'], auxiliaryData: { group: 'Navigate' }, run: () => document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) },
+    { id: 'projects', label: 'Jump to selected projects', keywords: ['work', 'repositories'], auxiliaryData: { group: 'Navigate' }, run: () => document.querySelector('#work')?.scrollIntoView({ behavior: 'smooth' }) },
+    { id: 'oss', label: 'Jump to open source activity', keywords: ['pull requests', 'contributions'], auxiliaryData: { group: 'Navigate' }, run: () => document.querySelector('#oss')?.scrollIntoView({ behavior: 'smooth' }) },
+    { id: 'github-activity', label: 'Jump to GitHub activity', keywords: ['calendar', 'contributions'], auxiliaryData: { group: 'Navigate' }, run: () => document.querySelector('#github')?.scrollIntoView({ behavior: 'smooth' }) },
     { id: 'about', label: 'Jump to about', keywords: ['profile'], auxiliaryData: { group: 'Navigate' }, run: () => document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' }) },
     { id: 'github', label: 'Open GitHub', keywords: ['repositories', 'code'], auxiliaryData: { group: 'Links' }, run: () => window.open(profile.sources.github, '_blank', 'noopener,noreferrer') },
     { id: 'linkedin', label: 'Open LinkedIn', keywords: ['professional', 'social'], auxiliaryData: { group: 'Links' }, run: () => window.open(profile.sources.linkedin, '_blank', 'noopener,noreferrer') },

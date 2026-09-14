@@ -1,9 +1,10 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { contributionLevels, profile } from '@/data/profile';
+import { profile } from '@/data/profile';
+import type { PortfolioData } from '@/lib/github/types';
 
-export function ActivityConsole() {
+export function ActivityConsole({ data }: { data: PortfolioData }) {
   const [time, setTime] = useState('—');
 
   useEffect(() => {
@@ -24,18 +25,12 @@ export function ActivityConsole() {
       </header>
       <dl className="console-stats">
         <section><dt>local time</dt><dd>{time} <small>IST</small></dd></section>
-        <section><dt>base</dt><dd>New Delhi <small>IN</small></dd></section>
-        <section><dt>focus</dt><dd>AI · security · systems</dd></section>
+        {data.pullRequests[0] && <section><dt>latest</dt><dd>merged PR · {data.pullRequests[0].owner}/{data.pullRequests[0].repository}</dd></section>}
+        {data.contributions[0] && <section><dt>contributions</dt><dd>{data.contributions[0].total.toLocaleString()} <small>this year</small></dd></section>}
+        {data.repositories[0] && <section><dt>recently active</dt><dd>{data.repositories[0].name}</dd></section>}
+        {data.profile && <section><dt>github</dt><dd>@{data.profile.login}</dd></section>}
       </dl>
-      <section className="heatmap-wrap" aria-label="GitHub contribution activity, public snapshot from August 2026">
-        <span className="heatmap-label">public GitHub activity · 2026</span>
-        <section className="heatmap" role="img" aria-label="Public GitHub contribution calendar snapshot">
-          {contributionLevels.map((level, index) => (
-            <span key={index} className={`cell level-${level}`} aria-hidden="true" />
-          ))}
-        </section>
-        <a href={`${profile.sources.github}?tab=overview&from=2026-01-01&to=2026-12-31`} target="_blank" rel="noreferrer">View live graph <span aria-hidden="true">↗</span></a>
-      </section>
+      <a className="console-link" href={profile.sources.github} target="_blank" rel="noreferrer">Open live profile <span aria-hidden="true">↗</span></a>
     </section>
   );
 }
