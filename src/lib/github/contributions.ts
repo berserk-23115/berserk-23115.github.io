@@ -37,7 +37,7 @@ async function calendarFor(year: number): Promise<ContributionYear | null> {
 }
 
 export async function getContributions(): Promise<ContributionYear[]> {
-  if (!process.env.GITHUB_TOKEN) return [];
+  if (!process.env.PORTFOLIO_GH_TOKEN) return [];
   try {
     const years = await github.graphql<{ user: { contributionYears: number[] } | null }>(`query Years($login: String!) { user(login: $login) { contributionYears } }`, { login: GITHUB_LOGIN });
     const calendars = await Promise.all((years.user?.contributionYears ?? []).slice(0, 3).map(calendarFor));

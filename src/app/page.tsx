@@ -70,7 +70,7 @@ export default async function Home() {
       <p><span>primary focus</span><strong>systems / ai</strong></p>
     </section>
     {data.contributions.length > 0 ? <ContributionGraph years={data.contributions} /> : <section id="github" className="contribution-shell contribution-unavailable" aria-labelledby="github-title">
-      <p className="section-index">01 / GITHUB</p><h2 id="github-title">GitHub activity, rendered natively.</h2><p>Set <code>GITHUB_TOKEN</code> at build time to populate the private server-side GraphQL contribution calendar.</p>
+      <p className="section-index">01 / GITHUB</p><h2 id="github-title">GitHub activity, rendered natively.</h2><p>Set <code>PORTFOLIO_GH_TOKEN</code> at build time to populate the private server-side GraphQL contribution calendar.</p>
     </section>}
     <section id="work" className="section projects" aria-labelledby="projects-title">
       <header className="section-label"><span>02</span><p>Selected work</p><a href={profile.sources.github} {...external}>all repositories ↗</a></header>

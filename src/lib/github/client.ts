@@ -3,7 +3,7 @@ import { Octokit } from 'octokit';
 
 /** This module is only imported by Server Components during static generation. */
 export const github = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
+  auth: process.env.PORTFOLIO_GH_TOKEN,
   userAgent: 'anushk-kumar-portfolio',
 });
 
