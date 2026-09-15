@@ -1,0 +1,221 @@
+{
+  "profile": {
+    "login": "berserk-23115",
+    "name": "Anushk Kumar",
+    "avatarUrl": "https://avatars.githubusercontent.com/u/146085675?v=4",
+    "bio": "I am an undergraduate student pursuing BTech in computer science and engineering degree at IIIT Delhi.",
+    "publicRepos": 22,
+    "followers": 8,
+    "url": "https://github.com/berserk-23115"
+  },
+  "repositories": [
+    {
+      "name": "Amber",
+      "description": "Amber is an offline-first Gemma 4-powered Android live companion that Help people with dementia overcome inability to recognize familiar faces, medication confusion, home disorientation, and acute distress through always-listening, private, real-time multimodal support ",
+      "url": "https://github.com/berserk-23115/Amber",
+      "homepageUrl": null,
+      "stars": 0,
+      "forks": 0,
+      "primaryLanguage": "Kotlin",
+      "languages": [
+        "Kotlin",
+        "Shell",
+        "Batchfile"
+      ],
+      "topics": [
+        "care-first",
+        "dementia",
+        "digital-inclusion",
+        "e2b-model",
+        "gemma4",
+        "neurodiversity",
+        "privacy"
+      ],
+      "updatedAt": "2026-06-02T13:33:25Z"
+    },
+    {
+      "name": "KryptVault",
+      "description": "A comprehensive Secure Storage Platform with high end encryption standards and fine grain control over your files and folders",
+      "url": "https://github.com/berserk-23115/KryptVault",
+      "homepageUrl": null,
+      "stars": 0,
+      "forks": 0,
+      "primaryLanguage": "TypeScript",
+      "languages": [
+        "TypeScript",
+        "Rust",
+        "CSS",
+        "JavaScript",
+        "Shell",
+        "Dockerfile",
+        "HTML"
+      ],
+      "topics": [
+        "encryption",
+        "privacy",
+        "secure",
+        "storage",
+        "tauri",
+        "turborepo",
+        "usable-security"
+      ],
+      "updatedAt": "2025-11-26T09:57:31Z"
+    },
+    {
+      "name": "GPU-Specialisation-Capstone",
+      "description": "GPU Programming Specialisation Capstone Project submission : A custom CUDA based real time video processor with varied filters to generate new and updated videos in minimal time. Used CUDA architecture to harness the power of Nvidia developed GPUs, and Kernels ",
+      "url": "https://github.com/berserk-23115/GPU-Specialisation-Capstone",
+      "homepageUrl": null,
+      "stars": 1,
+      "forks": 0,
+      "primaryLanguage": "Cuda",
+      "languages": [
+        "Cuda",
+        "C++",
+        "C",
+        "CMake",
+        "Dockerfile",
+        "Shell"
+      ],
+      "topics": [
+        "cpp17",
+        "cuda-kernels",
+        "cuda-programming",
+        "docker",
+        "filters",
+        "gpu-programming",
+        "makefile",
+        "nvidia",
+        "shell",
+        "signal-processing",
+        "video-processing"
+      ],
+      "updatedAt": "2025-09-29T10:50:32Z"
+    },
+    {
+      "name": "Assembly-RISCV-CO2024",
+      "description": "RISCV 32 bit based instruction assembler and simulator for evaluation of various programs in assembly. Highly Efficient Assembler and Instruction parser built on RUST to ensure memory safety and better performance. Python based simulator to simulate tasks in memory frames and stack frames",
+      "url": "https://github.com/berserk-23115/Assembly-RISCV-CO2024",
+      "homepageUrl": null,
+      "stars": 1,
+      "forks": 1,
+      "primaryLanguage": "Python",
+      "languages": [
+        "Python",
+        "Rust",
+        "Makefile",
+        "Shell"
+      ],
+      "topics": [
+        "assembler",
+        "parser",
+        "python",
+        "riscv-assembly",
+        "riscv-simulator",
+        "riscv32",
+        "rust"
+      ],
+      "updatedAt": "2025-09-29T08:39:49Z"
+    }
+  ],
+  "contributions": [],
+  "pullRequests": [
+    {
+      "title": "[Update] : Codebase organised and tested",
+      "repository": "Documentation-Agent",
+      "owner": "SDOS-2026",
+      "number": 46,
+      "url": "https://github.com/SDOS-2026/Documentation-Agent/pull/46",
+      "mergedAt": "2026-04-17T14:45:43Z",
+      "additions": 3236,
+      "deletions": 636,
+      "changedFiles": 38,
+      "external": true
+    },
+    {
+      "title": "Switch to Vertex AI for query processing #34",
+      "repository": "Documentation-Agent",
+      "owner": "SDOS-2026",
+      "number": 41,
+      "url": "https://github.com/SDOS-2026/Documentation-Agent/pull/41",
+      "mergedAt": "2026-04-15T10:20:23Z",
+      "additions": 9,
+      "deletions": 10,
+      "changedFiles": 1,
+      "external": true
+    },
+    {
+      "title": "init project. closes #1",
+      "repository": "Documentation-Agent",
+      "owner": "SDOS-2026",
+      "number": 2,
+      "url": "https://github.com/SDOS-2026/Documentation-Agent/pull/2",
+      "mergedAt": "2026-04-11T11:42:07Z",
+      "additions": 1470,
+      "deletions": 0,
+      "changedFiles": 31,
+      "external": true
+    },
+    {
+      "title": "Fix/vertex ai",
+      "repository": "Meeting-agent",
+      "owner": "SDOS-2026",
+      "number": 54,
+      "url": "https://github.com/SDOS-2026/Meeting-agent/pull/54",
+      "mergedAt": "2026-04-01T16:43:24Z",
+      "additions": 337,
+      "deletions": 23,
+      "changedFiles": 11,
+      "external": true
+    },
+    {
+      "title": "Feature/langsmith",
+      "repository": "Meeting-agent",
+      "owner": "SDOS-2026",
+      "number": 47,
+      "url": "https://github.com/SDOS-2026/Meeting-agent/pull/47",
+      "mergedAt": "2026-03-31T17:49:57Z",
+      "additions": 124,
+      "deletions": 2,
+      "changedFiles": 7,
+      "external": true
+    },
+    {
+      "title": "test: implement live LLM test suite and robust JSON parsing for Query…",
+      "repository": "Meeting-agent",
+      "owner": "SDOS-2026",
+      "number": 46,
+      "url": "https://github.com/SDOS-2026/Meeting-agent/pull/46",
+      "mergedAt": "2026-03-31T17:15:50Z",
+      "additions": 226,
+      "deletions": 53,
+      "changedFiles": 5,
+      "external": true
+    },
+    {
+      "title": "notes agent implemented and test",
+      "repository": "Meeting-agent",
+      "owner": "SDOS-2026",
+      "number": 41,
+      "url": "https://github.com/SDOS-2026/Meeting-agent/pull/41",
+      "mergedAt": "2026-03-31T09:05:35Z",
+      "additions": 266,
+      "deletions": 37,
+      "changedFiles": 4,
+      "external": true
+    },
+    {
+      "title": "Test/agents",
+      "repository": "Meeting-agent",
+      "owner": "SDOS-2026",
+      "number": 40,
+      "url": "https://github.com/SDOS-2026/Meeting-agent/pull/40",
+      "mergedAt": "2026-03-31T07:57:16Z",
+      "additions": 525,
+      "deletions": 12,
+      "changedFiles": 5,
+      "external": true
+    }
+  ],
+  "fetchedAt": "2026-09-15T02:06:44.472Z"
+}

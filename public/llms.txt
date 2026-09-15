@@ -6,4 +6,4 @@ Canonical URL: https://berserk-23115.github.io
 GitHub: https://github.com/berserk-23115
 LinkedIn: https://www.linkedin.com/in/anushk-kumar-a0b7b61ba
 
-The homepage contains verified profile details, selected public repositories, a native GitHub contribution calendar when build credentials are configured, open-source pull-request activity, technical stack, education, and links to the canonical source repositories. GitHub metrics are collected server-side during static builds and are omitted when unavailable.
+The homepage, Computational Matter, contains profile details, four selected project chapters (Amber, KryptVault, GPU Video Processor, and RISC-V Assembler), technical disciplines, education, public pull-request evidence, and contact links. Procedural Three.js and SVG artwork illustrates the engineering themes. Essential content is accessible without WebGL. GitHub data is collected during static builds in /data/github.json, retains the last available snapshot when refresh fails, and never includes credentials. A native contribution calendar is available when build credentials are configured.
