@@ -22,20 +22,11 @@ jobs:
           node-version: "24"
           cache: npm
       - uses: actions/configure-pages@v5
-      - uses: actions/cache/restore@v4
-        with:
-          path: public/data/github.json
-          key: github-snapshot-${{ github.run_id }}
-          restore-keys: github-snapshot-
       - run: npm ci
       - run: npm run typecheck && npm run lint
       - run: npm run build
         env:
-          PORTFOLIO_GH_TOKEN: ${{ secrets.PORTFOLIO_GH_TOKEN }}
-      - uses: actions/cache/save@v4
-        with:
-          path: public/data/github.json
-          key: github-snapshot-${{ github.run_id }}
+          PORTFOLIO_GH_TOKEN: ${{ secrets.PORTFOLIO_GH_TOKEN || github.token }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { profile } from "@/data/profile";
-import { MapPin, Clock, Mail, Copy, Check, ExternalLink, FileText } from "lucide-react";
+import { MapPin, Clock, Mail, Copy, Check } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 
 export function OverviewConsole() {
@@ -82,36 +82,18 @@ export function OverviewConsole() {
         </button>
       </div>
 
-      {/* Fast Social Channels */}
-      <div className="overview-social-cards">
-        <a
-          href={profile.sources.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-quick-card"
-        >
+      <div className="overview-quicklinks" aria-label="Quick links">
+        <span className="overview-sub">QUICK LINKS</span>
+        <a href={profile.sources.github} target="_blank" rel="noopener noreferrer" className="overview-social-link">
           <GithubIcon className="size-4" />
           <span>GitHub</span>
-          <ExternalLink className="size-3 text-muted" />
         </a>
-
-        <a
-          href={profile.sources.linkedin}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="social-quick-card"
-        >
+        <a href={profile.sources.linkedin} target="_blank" rel="noopener noreferrer" className="overview-social-link">
           <LinkedinIcon className="size-4" />
           <span>LinkedIn</span>
-          <ExternalLink className="size-3 text-muted" />
-        </a>
-
-        <a href="/resume" className="social-quick-card">
-          <FileText className="size-4" />
-          <span>Resume</span>
-          <ExternalLink className="size-3 text-muted" />
         </a>
       </div>
+
     </div>
   );
 }

@@ -1,8 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { profile } from "@/data/profile";
-import { ArrowUpRight, ArrowUp, Mail, FileText } from "lucide-react";
+import { ArrowUpRight, ArrowUp, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 
 export function Footer() {
@@ -16,7 +15,7 @@ export function Footer() {
         {/* Main Conversation CTA Stage */}
         <div className="footer-cta-stage">
           <div className="footer-eyebrow-row">
-            <span className="eyebrow">14 // CONTACT</span>
+            <span className="eyebrow">13 // CONTACT</span>
             <span className="footer-status-pill">
               <i className="status-dot-emerald" /> Available for Select Problems
             </span>
@@ -66,10 +65,6 @@ export function Footer() {
                 <span>LinkedIn</span>
               </a>
 
-              <Link href="/resume" className="social-icon-btn" aria-label="Resume">
-                <FileText className="size-4" />
-                <span>Resume</span>
-              </Link>
             </div>
           </div>
         </div>
@@ -80,15 +75,9 @@ export function Footer() {
             <p className="colophon-item">
               © {new Date().getFullYear()} Anushk Kumar. All rights reserved.
             </p>
-            <p className="colophon-item">
-              Indraprastha Institute of Information Technology, Delhi · New Delhi, India
-            </p>
           </div>
 
           <div className="colophon-right">
-            <span className="colophon-stack">
-              Next.js 16 · React 19 · Motion · Three.js · Astryx
-            </span>
             <button
               type="button"
               onClick={scrollToTop}

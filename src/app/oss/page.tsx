@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ossGroups } from "@/data/oss";
-import { ArrowLeft, GitPullRequest, GitMerge, ExternalLink, Sparkles } from "lucide-react";
+import { ArrowLeft, GitMerge, ExternalLink, Sparkles } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Open Source Contributions | Anushk Kumar",
@@ -45,7 +46,16 @@ export default function OssPage() {
                 <header className="oss-group-header">
                   <div className="oss-repo-title-row">
                     <div className="oss-repo-icon-wrap">
-                      <GitPullRequest className="size-5 text-sky-400" />
+                      <Image
+                        src={`https://github.com/${group.owner}.png?size=80`}
+                        alt={`${group.owner} GitHub avatar`}
+                        className="oss-org-avatar"
+                        width="40"
+                        height="40"
+                        loading="lazy"
+                        referrerPolicy="no-referrer"
+                        unoptimized
+                      />
                     </div>
                     <div>
                       <h2 className="oss-repo-name">

@@ -14,8 +14,8 @@ export const coreSkills: CoreSkillGroup[] = [
     group: "Systems & Compute",
     tagline: "Close to the silicon",
     items: ["CUDA", "C", "C++", "Rust", "RISC-V"],
-    color: "amber",
-    accentHex: "#f59e0b",
+    color: "stone",
+    accentHex: "#c0b7aa",
     description:
       "High-performance parallel kernels, memory models, hardware instruction simulation, and systems-level memory management.",
   },
@@ -24,8 +24,8 @@ export const coreSkills: CoreSkillGroup[] = [
     group: "Applied AI",
     tagline: "Models & inference",
     items: ["Python", "Computer Vision", "NLP", "Gemma"],
-    color: "electric-blue",
-    accentHex: "#3b82f6",
+    color: "slate",
+    accentHex: "#aeb7c2",
     description:
       "Deep learning pipelines, multimodal on-device intelligence, quantizing LLMs for CPU HPC, and multi-view cross attention.",
   },
@@ -34,8 +34,8 @@ export const coreSkills: CoreSkillGroup[] = [
     group: "Product Engineering",
     tagline: "End-to-end architectures",
     items: ["TypeScript", "Next.js", "PostgreSQL", "Kotlin"],
-    color: "emerald",
-    accentHex: "#10b981",
+    color: "sage",
+    accentHex: "#aab6af",
     description:
       "Modern full-stack web platforms, native Android & desktop client apps, high-concurrency microservices, and reactive UX.",
   },
@@ -44,8 +44,8 @@ export const coreSkills: CoreSkillGroup[] = [
     group: "Security",
     tagline: "Provable boundaries",
     items: ["Encryption", "Network Analysis", "libpcap"],
-    color: "plum",
-    accentHex: "#a855f7",
+    color: "ash",
+    accentHex: "#b2aeb8",
     description:
       "Zero-knowledge storage protocols, authenticated AEAD primitives, packet inspection, and fine-grained role-based policies.",
   },

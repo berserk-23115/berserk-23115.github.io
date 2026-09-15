@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { FlowGradient } from "@/components/flow-gradient";
 import { blogPosts } from "@/data/blog";
 import { ArrowLeft, Clock, Calendar, ArrowUpRight } from "lucide-react";
 
@@ -40,46 +41,49 @@ export default function BlogPage() {
         {/* Blog Post List */}
         <section className="subpage-content-container" aria-label="Articles list">
           <div className="blog-posts-stack">
-            {blogPosts.map((post) => (
+            {blogPosts.map((post, index) => (
               <article className="blog-card" key={post.slug}>
-                <div className="blog-card-meta">
-                  <span className="blog-cat-tag">{post.category}</span>
-                  <div className="blog-time-info">
-                    <Calendar className="size-3.5" />
-                    <time dateTime={post.date}>
-                      {new Date(post.date).toLocaleDateString("en-US", {
-                        month: "short",
-                        day: "numeric",
-                        year: "numeric",
-                      })}
-                    </time>
-                    <span className="meta-sep">·</span>
-                    <Clock className="size-3.5" />
-                    <span>{post.readingTime}</span>
-                  </div>
-                </div>
-
-                <h2 className="blog-card-title">
-                  <Link href={`/blog/${post.slug}`} className="blog-title-link">
-                    {post.title}
-                  </Link>
-                </h2>
-
-                <p className="blog-card-desc">{post.description}</p>
-
-                <div className="blog-card-footer">
-                  <div className="blog-tags-list">
-                    {post.tags.map((tag) => (
-                      <span className="blog-tag-pill" key={tag}>
-                        #{tag}
-                      </span>
-                    ))}
+                <FlowGradient variant={index} className="blog-card-art" />
+                <div className="blog-card-content">
+                  <div className="blog-card-meta">
+                    <span className="blog-cat-tag">{post.category}</span>
+                    <div className="blog-time-info">
+                      <Calendar className="size-3.5" />
+                      <time dateTime={post.date}>
+                        {new Date(post.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </time>
+                      <span className="meta-sep">·</span>
+                      <Clock className="size-3.5" />
+                      <span>{post.readingTime}</span>
+                    </div>
                   </div>
 
-                  <Link href={`/blog/${post.slug}`} className="read-post-btn">
-                    <span>Read Article</span>
-                    <ArrowUpRight className="size-4" />
-                  </Link>
+                  <h2 className="blog-card-title">
+                    <Link href={`/blog/${post.slug}`} className="blog-title-link">
+                      {post.title}
+                    </Link>
+                  </h2>
+
+                  <p className="blog-card-desc">{post.description}</p>
+
+                  <div className="blog-card-footer">
+                    <div className="blog-tags-list">
+                      {post.tags.map((tag) => (
+                        <span className="blog-tag-pill" key={tag}>
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <Link href={`/blog/${post.slug}`} className="read-post-btn">
+                      <span>Read Article</span>
+                      <ArrowUpRight className="size-4" />
+                    </Link>
+                  </div>
                 </div>
               </article>
             ))}

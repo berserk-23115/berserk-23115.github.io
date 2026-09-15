@@ -113,14 +113,6 @@ export function SiteActions() {
         auxiliaryData: { group: "Pages" },
         run: () => navigate("/blog"),
       },
-      {
-        id: "route-resume",
-        label: "Go to /resume (Interactive Resume)",
-        keywords: ["resume", "cv", "pdf", "qualifications"],
-        auxiliaryData: { group: "Pages" },
-        run: () => navigate("/resume"),
-      },
-
       // Individual Project Case Studies
       ...projects.map((project) => ({
         id: `project-${project.slug}`,

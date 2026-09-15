@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { NameSignature } from "@/components/name-signature";
@@ -16,7 +17,6 @@ import { profile, education } from "@/data/profile";
 import { coreSkills } from "@/data/skills";
 import { publications } from "@/data/publications";
 import { projects } from "@/data/projects";
-import { ossGroups } from "@/data/oss";
 import { certifications } from "@/data/certifications";
 import { achievements } from "@/data/achievements";
 import { blogPosts } from "@/data/blog";
@@ -26,11 +26,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   Award,
-  GraduationCap,
   Sparkles,
-  GitPullRequest,
-  FileText,
-  Mail,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -137,30 +133,9 @@ export default async function Home() {
                 </div>
 
                 <p className="hero-tagline">{profile.tagline}</p>
-
-                <p className="hero-subtext">
-                  Moving across abstraction layers—from CUDA parallel kernels and cryptographic
-                  protocols to autonomous agent harnesses and reactive product engineering.
-                </p>
-
-                {/* Primary CTA Row */}
-                <div className="hero-cta-group">
-                  <a href={`mailto:${profile.email}`} className="primary-cta-btn">
-                    <Mail className="size-4" />
-                    <span>Get in touch</span>
-                  </a>
-                  <Link href="/resume" className="secondary-cta-btn">
-                    <FileText className="size-4" />
-                    <span>View Resume</span>
-                  </Link>
-                  <a
-                    href={profile.sources.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="ghost-cta-btn"
-                  >
-                    <span>GitHub ↗</span>
-                  </a>
+                <p className="hero-role">Software Developer <span>(He/Him)</span></p>
+                <div className="hero-overview-bar">
+                  <OverviewConsole />
                 </div>
               </div>
 
@@ -172,15 +147,6 @@ export default async function Home() {
                 />
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* ====================================================
-            02 OVERVIEW / SIGNALS
-            ==================================================== */}
-        <section id="overview" className="section-frame" aria-label="Personal overview">
-          <div className="section-container">
-            <OverviewConsole />
           </div>
         </section>
 
@@ -197,14 +163,7 @@ export default async function Home() {
               </h2>
             </div>
 
-            <div className="about-statements-grid">
-              {profile.bioStatements.map((statement, idx) => (
-                <div className="statement-card" key={idx}>
-                  <span className="statement-num">0{idx + 1}</span>
-                  <p className="statement-text">{statement}</p>
-                </div>
-              ))}
-            </div>
+            <p className="about-copy">{profile.bioStatements.join(" ")}</p>
           </div>
         </section>
 
@@ -312,12 +271,9 @@ export default async function Home() {
             <div className="section-header-cluster">
               <span className="eyebrow">07 // EXPERIENCE</span>
               <h2 id="experience-title" className="section-title">
-                Industry &amp; research <br />
-                <em>track record.</em>
+                Experience <br />
+                <em>that compounds.</em>
               </h2>
-              <p className="section-lead">
-                From autonomous agent harnesses at Adobe to robotics telemetry and high-performance computing labs.
-              </p>
             </div>
 
             <ExperienceTimeline />
@@ -369,10 +325,6 @@ export default async function Home() {
                     <em>case studies.</em>
                   </h2>
                 </div>
-                <Link href="/projects" className="section-external-link">
-                  <span>View all projects ({projects.length})</span>
-                  <ArrowRight className="size-4" />
-                </Link>
               </div>
               <p className="section-lead">
                 Curated studies in offline multimodal intelligence, zero-knowledge storage, and parallel video processors.
@@ -380,87 +332,20 @@ export default async function Home() {
             </div>
 
             <div className="projects-cards-grid">
-              {projects.slice(0, 4).map((project, idx) => (
+              {projects.map((project, idx) => (
                 <ProjectCard key={project.slug} project={project} index={idx} />
               ))}
             </div>
-
-            <div className="section-footer-cta">
-              <Link href="/projects" className="explore-more-btn">
-                <span>Browse All {projects.length} Projects in Detail</span>
-                <ArrowRight className="size-4" />
-              </Link>
-            </div>
           </div>
         </section>
 
         {/* ====================================================
-            10 OPEN SOURCE
-            ==================================================== */}
-        <section id="oss" className="section-frame section-pad" aria-labelledby="oss-heading">
-          <div className="section-container">
-            <div className="section-header-cluster">
-              <div className="header-split-row">
-                <div>
-                  <span className="eyebrow">10 // OPEN SOURCE</span>
-                  <h2 id="oss-heading" className="section-title">
-                    Contributing to <br />
-                    <em>distributed ecosystems.</em>
-                  </h2>
-                </div>
-                <Link href="/oss" className="section-external-link">
-                  <span>Explore all PRs</span>
-                  <ArrowRight className="size-4" />
-                </Link>
-              </div>
-              <p className="section-lead">
-                Merged contributions into external autonomous agent systems, Vertex AI tooling, and LangSmith tracing harnesses.
-              </p>
-            </div>
-
-            <div className="oss-preview-cards">
-              {ossGroups.map((group) => (
-                <div className="oss-preview-card" key={group.repo}>
-                  <div className="oss-prev-top">
-                    <div className="oss-prev-icon">
-                      <GitPullRequest className="size-4 text-sky-400" />
-                    </div>
-                    <div>
-                      <h3 className="oss-prev-name">
-                        {group.owner}/{group.repo}
-                      </h3>
-                      <span className="oss-prev-domain">{group.primaryDomain}</span>
-                    </div>
-                  </div>
-
-                  <p className="oss-prev-desc">{group.description}</p>
-
-                  <div className="oss-prev-highlights">
-                    <span className="oss-pill-counter">
-                      {group.pullRequests.length} Merged Pull Requests
-                    </span>
-                    <span className="oss-sample-title">
-                      Latest: #{group.pullRequests[0].number} {group.pullRequests[0].title}
-                    </span>
-                  </div>
-
-                  <Link href="/oss" className="oss-inspect-btn">
-                    <span>Inspect contributions</span>
-                    <ArrowRight className="size-3.5" />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ====================================================
-            11 CERTIFICATIONS & ACHIEVEMENTS
+            10 CERTIFICATIONS & ACHIEVEMENTS
             ==================================================== */}
         <section id="credentials" className="section-frame section-pad" aria-labelledby="creds-heading">
           <div className="section-container">
             <div className="section-header-cluster">
-              <span className="eyebrow">11 // HONORS &amp; CERTIFICATIONS</span>
+              <span className="eyebrow">10 // HONORS &amp; CERTIFICATIONS</span>
               <h2 id="creds-heading" className="section-title">
                 Validated credentials <br />
                 <em>&amp; national awards.</em>
@@ -521,17 +406,21 @@ export default async function Home() {
         </section>
 
         {/* ====================================================
-            12 EDUCATION
+            11 EDUCATION
             ==================================================== */}
         <section id="education" className="section-frame section-pad" aria-labelledby="edu-heading">
           <div className="section-container">
             <div className="education-card-surface">
               <div className="edu-left-cluster">
-                <div className="edu-icon-wrap">
-                  <GraduationCap className="size-6 text-sky-400" />
-                </div>
+                <Image
+                  src="/iiitd.png"
+                  alt="IIIT Delhi"
+                  width={72}
+                  height={44}
+                  className="education-logo"
+                />
                 <div>
-                  <span className="eyebrow">12 // ACADEMIC FOUNDATION</span>
+                  <span className="eyebrow">11 // ACADEMIC FOUNDATION</span>
                   <h2 id="edu-heading" className="edu-institution">
                     {education.institution}
                   </h2>
@@ -541,10 +430,6 @@ export default async function Home() {
               </div>
 
               <div className="edu-right-cluster">
-                <div className="edu-stat-box">
-                  <span className="stat-num">7.66</span>
-                  <span className="stat-lbl">CGPA (Till 6th Sem)</span>
-                </div>
                 <div className="edu-tag-cluster">
                   <span className="edu-tag">Computer Vision</span>
                   <span className="edu-tag">Systems Programming</span>
@@ -557,17 +442,17 @@ export default async function Home() {
         </section>
 
         {/* ====================================================
-            13 BLOG PREVIEW
+            12 BLOG PREVIEW
             ==================================================== */}
         <section id="blog-preview" className="section-frame section-pad" aria-labelledby="blog-prev-heading">
           <div className="section-container">
             <div className="section-header-cluster">
               <div className="header-split-row">
                 <div>
-                  <span className="eyebrow">13 // RECENT WRITING</span>
+                  <span className="eyebrow">12 // RECENT WRITING</span>
                   <h2 id="blog-prev-heading" className="section-title">
-                    Systems notes &amp; <br />
-                    <em>architecture essays.</em>
+                    Notes on systems <br />
+                    <em>and applied AI.</em>
                   </h2>
                 </div>
                 <Link href="/blog" className="section-external-link">

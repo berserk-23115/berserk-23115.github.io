@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "motion/react";
 import type { Publication } from "@/data/publications";
+import { FlowGradient } from "@/components/flow-gradient";
 
 interface ResearchCardProps {
   publication: Publication;
@@ -28,6 +29,7 @@ export function ResearchCard({ publication, index }: ResearchCardProps) {
       transition={{ duration: 0.6, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
     >
       {/* Background Luminous Gradient Canvas with Texture */}
+      <FlowGradient variant={index + 10} className="card-art-stage flow-gradient-art" />
       <div className="card-luminous-canvas" aria-hidden="true">
         <div className="gradient-orb primary" />
         <div className="gradient-orb secondary" />
@@ -36,7 +38,7 @@ export function ResearchCard({ publication, index }: ResearchCardProps) {
       </div>
 
       {/* Bespoke Interactive SVG Art for the Paper */}
-      <div className="card-art-stage" aria-hidden="true">
+      <div className="card-art-stage legacy-card-art" aria-hidden="true">
         {publication.visualType === "deepfake-split" ? (
           <svg
             className="research-svg deepfake-split-svg"

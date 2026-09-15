@@ -1,6 +1,6 @@
 export const profile = {
   name: "Anushk Kumar",
-  tagline: "Building intelligent systems across AI, systems, security and product engineering.",
+  tagline: "Building practical AI and systems software.",
   handle: "berserk-23115",
   role: "Computer Science @ IIIT Delhi",
   specialization: "AI · Systems · Security · Product Engineering",
@@ -12,9 +12,7 @@ export const profile = {
   avatarFull: "/anushk_up.jpg",
   bioStatements: [
     "Computer Science undergraduate at Indraprastha Institute of Information Technology, Delhi (IIIT Delhi).",
-    "Engineer moving fluidly across abstraction layers: from CUDA kernels, low-level CPU architectures, and crypto primitives to high-concurrency microservices and reactive interfaces.",
-    "Work spans research labs (HiPeC, IRAS-Hub), industry product engineering (Adobe Systems), and open-source systems.",
-    "Focused on building verifiable, high-performance software where performance, privacy, and low-level fundamentals matter.",
+    "I build practical AI and systems software where performance, privacy, and clear interfaces matter.",
   ],
   sources: {
     github: "https://github.com/berserk-23115",
@@ -32,6 +30,5 @@ export const education = {
   degree: "B.Tech in Computer Science and Engineering",
   period: "2023 – Present",
   location: "New Delhi, India",
-  cgpa: "7.66 (Till 6th semester)",
   source: profile.sources.github,
 } as const;

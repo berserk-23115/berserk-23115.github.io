@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import type { Project } from "@/data/projects";
+import { FlowGradient } from "@/components/flow-gradient";
 
 interface ProjectCardProps {
   project: Project;
@@ -34,8 +35,10 @@ export function ProjectCard({ project, index }: ProjectCardProps) {
         <div className="card-noise-layer" />
       </div>
 
+      <FlowGradient variant={index + 5} className="card-art-stage flow-gradient-art project-art-stage" />
+
       {/* Bespoke Project Visual Artwork */}
-      <div className="card-art-stage project-art-stage" aria-hidden="true">
+      <div className="card-art-stage project-art-stage legacy-card-art" aria-hidden="true">
         {project.visual === "signal" && (
           <svg className="project-svg signal-svg" viewBox="0 0 340 140" fill="none">
             <defs>

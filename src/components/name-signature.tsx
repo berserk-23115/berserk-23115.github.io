@@ -69,7 +69,7 @@ export function NameSignature({
           cx="318"
           cy="10"
           r="2.5"
-          fill="#38bdf8"
+          fill="#b8bec7"
           initial={reducedMotion ? false : { scale: 0, opacity: 0 }}
           animate={reducedMotion ? undefined : { scale: 1, opacity: 1 }}
           transition={{ duration: 0.3, delay: 1.35 }}
@@ -83,10 +83,10 @@ export function NameSignature({
             y2="0"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.2" />
-            <stop offset="40%" stopColor="#818cf8" stopOpacity="0.9" />
-            <stop offset="85%" stopColor="#38bdf8" stopOpacity="1" />
-            <stop offset="100%" stopColor="#c084fc" stopOpacity="0.8" />
+            <stop offset="0%" stopColor="#b8bec7" stopOpacity="0.1" />
+            <stop offset="40%" stopColor="#e5e7eb" stopOpacity="0.45" />
+            <stop offset="85%" stopColor="#9aa2ad" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#6b7280" stopOpacity="0.35" />
           </linearGradient>
         </defs>
       </svg>

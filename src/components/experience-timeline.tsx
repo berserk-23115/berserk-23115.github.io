@@ -1,9 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, useReducedMotion } from "motion/react";
 import { primaryExperience, secondaryExperience } from "@/data/experience";
-import { ChevronDown, Sparkles, Building2, ExternalLink } from "lucide-react";
+import { ChevronDown, Sparkles, ExternalLink } from "lucide-react";
+
+const organizationAvatars: Record<string, string> = {
+  adobe: "/adobe-logo.webp",
+  iras: "/iras hub.png",
+  hipec: "https://www.linkedin.com/company/hipec-iiit-delhi/logo/",
+  resxiv: "/resxiv.jpeg",
+  starkvision: "https://www.linkedin.com/company/starkvision-research/logo/",
+  esya: "https://www.linkedin.com/company/esya-iiitd/logo/",
+  cyborg: "https://www.linkedin.com/company/cyborg-iiitd/logo/",
+};
 
 export function ExperienceTimeline() {
   const [showSecondary, setShowSecondary] = useState(false);
@@ -33,11 +44,18 @@ export function ExperienceTimeline() {
               <header className="experience-header">
                 <div className="experience-role-group">
                   <div className="company-logo-frame" aria-hidden="true">
-                    {exp.id === "adobe" ? (
-                      <span className="adobe-badge-mark">A</span>
-                    ) : (
-                      <Building2 className="size-4.5 text-muted-foreground" />
-                    )}
+                    <span className="company-logo-fallback">{exp.company.charAt(0)}</span>
+                    <Image
+                      className="company-logo-image"
+                      src={organizationAvatars[exp.logo] ?? organizationAvatars[exp.id] ?? ""}
+                      alt=""
+                      width={40}
+                      height={40}
+                      unoptimized
+                      onError={(event) => {
+                        event.currentTarget.style.display = "none";
+                      }}
+                    />
                   </div>
                   <div>
                     <h3 className="experience-role">{exp.role}</h3>

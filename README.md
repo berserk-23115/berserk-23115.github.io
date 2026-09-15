@@ -24,6 +24,6 @@ The renderer selects HIGH/MEDIUM/LOW by viewport and display density. LOW caps D
 
 `scripts/github-snapshot.mjs` generates `public/data/github.json`. Requests time out, and each failed section retains its last successful value. The public file contains selected public data only. Set repository secret **PORTFOLIO_GH_TOKEN** to enable authenticated GraphQL contribution calendars. Never prefix this secret with `NEXT_PUBLIC_`. Public REST data works without it. No tokens or authenticated requests reach the browser.
 
-The Pages workflow restores the last snapshot cache, builds, saves the new snapshot, and deploys `out/`. It runs on pushes to main, manual dispatch and a six-hour schedule. Enable GitHub Pages → GitHub Actions in repository settings. Runtime servers and Vercel are unnecessary.
+The Pages workflow builds the checked-in snapshot, refreshes it during the build, and deploys `out/`. It runs on pushes to main, manual dispatch and a six-hour schedule. It uses `PORTFOLIO_GH_TOKEN` when configured and falls back to the workflow's built-in GitHub token. Enable GitHub Pages → GitHub Actions in repository settings. Runtime servers and Vercel are unnecessary.
 
 No detailed case-study routes are published: the available public descriptions do not support invented outcomes or technical decision narratives. Each chapter links directly to its source repository.

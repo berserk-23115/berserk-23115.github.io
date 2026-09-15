@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import {
   techCategories,
@@ -32,6 +33,65 @@ const categoryIcons: Record<TechCategory, React.ReactNode> = {
   Security: <Shield className="size-4" />,
   "Design & Motion": <Palette className="size-4" />,
 };
+
+const technologyIconSlugs: Record<string, string> = {
+  Python: "python",
+  C: "c",
+  "C++": "cplusplus",
+  Rust: "rust",
+  CUDA: "nvidia",
+  TypeScript: "typescript",
+  JavaScript: "javascript",
+  Kotlin: "kotlin",
+  Java: "openjdk",
+  "Next.js": "nextdotjs",
+  React: "react",
+  "React Native": "react",
+  "Tailwind CSS": "tailwindcss",
+  Tauri: "tauri",
+  "Jetpack Compose": "jetpackcompose",
+  "Monaco / AceEditor": "monaco",
+  FastAPI: "fastapi",
+  "Spring Boot": "springboot",
+  Hono: "hono",
+  PyTorch: "pytorch",
+  "ONNX Runtime": "onnx",
+  Gemma: "google",
+  "Computer Vision": "opencv",
+  NLP: "huggingface",
+  Vosk: "vosk",
+  "ROS1 / ROS2": "ros",
+  ROSBag: "ros",
+  OpenMP: "openmp",
+  "RISC-V": "riscv",
+  PostgreSQL: "postgresql",
+  "Drizzle ORM": "drizzle",
+  "Better Auth": "betterauth",
+  Supabase: "supabase",
+  SQLCipher: "sqlite",
+  "S3 Storage": "amazons3",
+  Docker: "docker",
+  "GitHub Actions": "githubactions",
+  "Google Cloud / GCP": "googlecloud",
+  "Vertex AI": "googlecloud",
+  LangSmith: "langchain",
+  "Cloudflare CDN": "cloudflare",
+  Vercel: "vercel",
+  libsodium: "sodium",
+  "XChaCha20-Poly1305": "openssl",
+  libpcap: "wireshark",
+  Figma: "figma",
+  "Framer Motion": "framer",
+  "Adobe Illustrator": "adobeillustrator",
+  "LaTeX / TeX Live": "latex",
+  "Three.js": "threedotjs",
+  Motion: "motion",
+};
+
+function technologyIconUrl(name: string) {
+  const slug = technologyIconSlugs[name];
+  return slug ? `https://cdn.simpleicons.org/${slug}/b8bec7` : null;
+}
 
 export function TechCloud() {
   const [activeCategory, setActiveCategory] = useState<TechCategory | "All">("All");
@@ -109,7 +169,20 @@ export function TechCloud() {
               aria-label={`${tech.name}: ${tech.context}`}
             >
               <div className="tech-icon-frame">
-                {categoryIcons[tech.category] || <Cpu className="size-4" />}
+                {technologyIconUrl(tech.name) ? (
+                  <Image
+                    src={technologyIconUrl(tech.name) ?? ""}
+                    alt=""
+                    className="technology-brand-icon"
+                    loading="lazy"
+                    referrerPolicy="no-referrer"
+                    width={16}
+                    height={16}
+                    unoptimized
+                  />
+                ) : (
+                  <Cpu className="size-4" aria-hidden="true" />
+                )}
               </div>
               <span className="tech-label">{tech.name}</span>
             </motion.div>
