@@ -1,1 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#101112"/><text x="9" y="44" fill="#eeede7" font-family="Arial,sans-serif" font-size="34" font-weight="bold" letter-spacing="-4">ak</text><path d="M43 48h13" stroke="#8194ff" stroke-width="4"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#0c0d0e" />
+  <rect width="64" height="64" rx="14" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" />
+  
+  <defs>
+    <linearGradient id="ak-grad" x1="12" y1="14" x2="52" y2="50" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="65%" stop-color="#e2e8f0" />
+      <stop offset="100%" stop-color="#38bdf8" />
+    </linearGradient>
+    <linearGradient id="ak-accent" x1="38" y1="46" x2="52" y2="46" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#818cf8" />
+    </linearGradient>
+  </defs>
+
+  <!-- Stylized Geometric AK Monogram: Computational Parallel Path Structure -->
+  <!-- Letter A Stem and Crossbar -->
+  <path
+    d="M16 48 L25.5 16 H30.5 L40 48 H34.2 L32.2 41 H23.8 L21.8 48 H16 Z M25.2 36 H30.8 L28 25.5 Z"
+    fill="url(#ak-grad)"
+  />
+
+  <!-- Letter K Angled Arms -->
+  <path
+    d="M41 16 H46.5 L36.5 32.5 L47.5 48 H41.5 L32.5 34.5 L37 27 L41 16 Z"
+    fill="url(#ak-grad)"
+  />
+
+  <!-- Terminal Computational Accent: Underscore / Execution Cursor -->
+  <rect x="44" y="44" width="8" height="4" rx="1" fill="url(#ak-accent)" />
+</svg>

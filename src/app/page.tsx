@@ -1,478 +1,606 @@
-import { VStack, HStack } from "@/components/editorial-layout";
-import { SiteActions } from "@/components/site-actions";
-import { CoreArt } from "@/components/core-art";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
+import { NameSignature } from "@/components/name-signature";
+import { PortraitVisual } from "@/components/portrait-visual";
 import { ComputationalCore } from "@/components/computational-core";
-import { ProjectArt } from "@/components/project-art";
-import { Experience, HeroType } from "@/components/experience";
-import { ContributionGraph } from "@/components/contribution-graph";
-import { education, profile, projects, skills } from "@/data/profile";
+import { OverviewConsole } from "@/components/overview-console";
+import { ContributionHeatmap } from "@/components/contribution-heatmap";
+import { ResearchCard } from "@/components/research-card";
+import { ProjectCard } from "@/components/project-card";
+import { TechCloud } from "@/components/tech-cloud";
+import { ExperienceTimeline } from "@/components/experience-timeline";
+
+import { profile, education } from "@/data/profile";
+import { coreSkills } from "@/data/skills";
+import { publications } from "@/data/publications";
+import { projects } from "@/data/projects";
+import { ossGroups } from "@/data/oss";
+import { certifications } from "@/data/certifications";
+import { achievements } from "@/data/achievements";
+import { blogPosts } from "@/data/blog";
 import { getPortfolioData } from "@/lib/github/activity";
 
-const external = { target: "_blank", rel: "noopener noreferrer" };
-const index = (number: string, title: string) => (
-  <p className="eyebrow section-index">
-    <b>{number}</b> / {title}
-  </p>
-);
+import {
+  ArrowRight,
+  ArrowUpRight,
+  CheckCircle2,
+  Award,
+  GraduationCap,
+  Sparkles,
+  GitPullRequest,
+  FileText,
+  Mail,
+} from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Anushk Kumar — Systems, AI & Security Engineer",
+  description:
+    "Portfolio of Anushk Kumar. Computer Science undergraduate at IIIT Delhi building intelligent systems across AI, GPU computing, usable security, and product engineering. Adobe Product Intern & Published Researcher.",
+  openGraph: {
+    title: "Anushk Kumar — Systems, AI & Security Engineer",
+    description:
+      "Computer Science at IIIT Delhi. Experience at Adobe & research labs. Published work in multimodal deepfake detection & medical vision.",
+    url: "https://berserk-23115.github.io",
+    siteName: "Anushk Kumar",
+    images: [
+      {
+        url: "/social.png",
+        width: 1200,
+        height: 630,
+        alt: "Anushk Kumar — Systems, AI & Security Engineer",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+};
 
 export default async function Home() {
   const data = await getPortfolioData();
-  const prs = data.pullRequests.filter((pr) => pr.external).slice(0, 6);
+
+  // Structured JSON-LD metadata for SEO & Google Rich Results
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "Person",
-    name: profile.name,
-    url: "https://berserk-23115.github.io",
-    sameAs: [profile.sources.github, profile.sources.linkedin],
-    affiliation: {
-      "@type": "CollegeOrUniversity",
-      name: education.institution,
-    },
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://berserk-23115.github.io/#person",
+        name: profile.name,
+        url: "https://berserk-23115.github.io",
+        image: "https://berserk-23115.github.io/anushk_up.jpg",
+        jobTitle: "Software Engineer & AI Researcher",
+        worksFor: {
+          "@type": "Organization",
+          name: "Adobe Systems",
+        },
+        affiliation: {
+          "@type": "CollegeOrUniversity",
+          name: education.institution,
+        },
+        sameAs: [
+          profile.sources.github,
+          profile.sources.linkedin,
+          profile.sources.x,
+        ],
+        description: profile.tagline,
+      },
+      ...publications.map((pub) => ({
+        "@type": "ScholarlyArticle",
+        headline: pub.title,
+        author: {
+          "@type": "Person",
+          name: profile.name,
+        },
+        description: pub.summary,
+        url: pub.link,
+      })),
+    ],
   };
+
   return (
-    <VStack as="main" className="portfolio" gap={0}>
-      <Experience />
+    <div className="portfolio">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
         }}
       />
-      <a href="#work" className="skip-link">
-        Skip to selected work
+
+      <a href="#about" className="skip-link">
+        Skip to main content
       </a>
-      <HStack
-        as="header"
-        className="navigation"
-        justify="between"
-        align="center"
-      >
-        <a className="wordmark" href="#top" aria-label="Anushk Kumar home">
-          ak<i>_</i>
-        </a>
-        <HStack as="nav" gap={8} aria-label="Primary navigation">
-          <a data-target="about" href="#about">
-            01 / About
-          </a>
-          <a data-target="work" href="#work">
-            02 / Work
-          </a>
-          <a data-target="stack" href="#stack">
-            03 / System
-          </a>
-          <a data-target="contact" href="#contact">
-            04 / Contact
-          </a>
-        </HStack>
-        <SiteActions />
-      </HStack>
-      <section
-        id="top"
-        className="hero"
-        data-chapter
-        aria-labelledby="page-title"
-      >
-        <HStack className="hero-top" justify="between">
-          <p className="eyebrow availability">
-            Available for interesting problems
-          </p>
-          <p className="eyebrow edition">Independent portfolio / 2026</p>
-        </HStack>
-        <ComputationalCore />
-        <VStack className="hero-text" gap={8}>
-          <p className="eyebrow hero-identity">
-            Anushk Kumar <b>—</b> CSE @ IIIT Delhi
-          </p>
-          <HeroType />
-        </VStack>
-        <HStack className="hero-bottom" align="end" justify="between" gap={8}>
-          <VStack gap={6}>
-            <p className="hero-description">
-              At the intersection of intelligence,
-              <br />
-              security, and the systems beneath.
-            </p>
-            <HStack gap={6} wrap="wrap">
-              <a className="primary-link" href={`mailto:${profile.email}`}>
-                Start a conversation ↗
-              </a>
-              <a
-                className="small-link"
-                href={profile.sources.github}
-                {...external}
-              >
-                GitHub ↗
-              </a>
-              <a
-                className="small-link"
-                href={profile.sources.linkedin}
-                {...external}
-              >
-                LinkedIn ↗
-              </a>
-            </HStack>
-          </VStack>
-          <a className="scroll-cue" href="#about">
-            <i>↓</i>
-            <p className="eyebrow">
-              Scroll to explore
-              <br />
-              <b>Signals → structure → evidence</b>
-            </p>
-          </a>
-        </HStack>
-        <p className="hero-side">
-          AI × USABLE SECURITY × SYSTEMS × GPU COMPUTE
-        </p>
-      </section>
-      <section
-        className="field-notes section-pad"
-        id="about"
-        data-chapter
-        aria-labelledby="about-title"
-      >
-        {index("01", "Field notes")}
-        <h2 id="about-title">
-          Curious about computing
-          <br />
-          from the <em>kernel up.</em>
-        </h2>
-        <HStack
-          className="about-bottom"
-          align="start"
-          justify="between"
-          gap={10}
-        >
-          <p className="eyebrow margin-note">
-            The machine.
-            <br />
-            The person using it.
-            <br />
-            <b>The space in between.</b>
-          </p>
-          <VStack gap={6} className="about-prose">
-            <p>
-              I’m Anushk, a computer science undergraduate at IIIT Delhi. My
-              work explores the practical seams between AI, usable security,
-              systems, and GPU computing.
-            </p>
-            <p>
-              I’m interested in what happens when the low-level details meet the
-              real world: private intelligence, useful security, and software
-              built with an understanding of the machine.
-            </p>
-            <a
-              className="small-link"
-              href={profile.sources.profileReadme}
-              {...external}
-            >
-              More about me on GitHub ↗
-            </a>
-          </VStack>
-        </HStack>
-      </section>
-      <section
-        id="github"
-        className="signal section-pad"
-        data-chapter
-        aria-labelledby="signal-title"
-      >
-        <HStack justify="between" align="start" gap={8}>
-          {index("02", "Signal")}
-          <a className="small-link" href={profile.sources.github} {...external}>
-            Follow the work ↗
-          </a>
-        </HStack>
-        <HStack
-          className="signal-heading"
-          align="end"
-          justify="between"
-          gap={8}
-        >
-          <h2 id="signal-title">
-            Less assertion.
-            <br />
-            <em>More evidence.</em>
-          </h2>
-          <p className="signal-caption">
-            Public work. Open repositories.
-            <br />A record of things being built.
-          </p>
-        </HStack>
-        {data.contributions.length > 0 ? (
-          <ContributionGraph years={data.contributions} />
-        ) : (
-          <svg
-            className="repository-signal"
-            viewBox="0 0 1000 170"
-            role="img"
-            aria-label="Decorative signal field; repository statistics below are from GitHub"
-          >
-            <path
-              d={Array.from(
-                { length: 300 },
-                (_, i) =>
-                  `${i ? "L" : "M"}${i * 3.35},${85 + Math.sin(i * 0.09) * Math.sin(i * 0.031) * Math.sin(i * 0.21) * 62}`,
-              ).join(" ")}
-              fill="none"
-              stroke="currentColor"
-            />
-            <path d="M0 85H1000" stroke="currentColor" opacity=".15" />
-          </svg>
-        )}
-        <HStack className="signal-stats" justify="between" gap={8} wrap="wrap">
-          {data.profile && (
-            <p>
-              <strong>{data.profile.publicRepos}</strong>
-              <small>Public repositories</small>
-            </p>
-          )}
-          <p>
-            <strong>{projects.length.toString().padStart(2, "0")}</strong>
-            <small>Selected studies</small>
-          </p>
-          <p>
-            <strong>Open</strong>
-            <small>Source, process, possibility</small>
-          </p>
-          <a
-            className="small-link"
-            href={`${profile.sources.github}?tab=overview`}
-            {...external}
-          >
-            View contribution history ↗
-          </a>
-        </HStack>
-      </section>
-      <section
-        id="work"
-        className="work section-pad"
-        data-chapter
-        aria-labelledby="work-title"
-      >
-        <HStack justify="between" align="start">
-          {index("03", "Selected work")}
-          <p className="eyebrow">Four studies / one curiosity</p>
-        </HStack>
-        <h2 id="work-title" className="work-heading">
-          Ideas, made
-          <br />
-          <em>executable.</em>
-        </h2>
-        {projects.map((project, i) => {
-          const repo = data.repositories.find(
-            (repo) => repo.name === project.repo,
-          );
-          return (
-            <article
-              className={`project-chapter chapter-${project.visual}`}
-              key={project.slug}
-              id={project.slug}
-            >
-              <HStack
-                className="chapter-heading"
-                justify="between"
-                align="start"
-                gap={8}
-              >
-                <VStack gap={4}>
-                  <p className="eyebrow">
-                    <b>0{i + 1}</b> / {project.category}
-                  </p>
-                  <h3>
-                    <a href={project.source} {...external}>
-                      {project.title}
-                      <sup>↗</sup>
-                    </a>
-                  </h3>
-                </VStack>
-                <p className="chapter-number" aria-hidden="true">
-                  0{i + 1}
+
+      <Navigation />
+
+      <main id="main-content">
+        {/* ====================================================
+            01 HERO / PROFILE
+            ==================================================== */}
+        <section id="hero" className="hero-section" aria-labelledby="hero-name">
+          {/* Subtle Background Three.js Manifold */}
+          <div className="hero-threejs-layer" aria-hidden="true">
+            <ComputationalCore />
+          </div>
+
+          <div className="hero-container">
+            <div className="hero-grid">
+              {/* Left Identity Column */}
+              <div className="hero-identity-col">
+                <div className="hero-status-tag">
+                  <span className="live-dot" />
+                  <span className="status-text">CSE @ IIIT Delhi · New Delhi, India</span>
+                </div>
+
+                <div id="hero-name" className="hero-signature-wrap">
+                  <NameSignature />
+                </div>
+
+                <p className="hero-tagline">{profile.tagline}</p>
+
+                <p className="hero-subtext">
+                  Moving across abstraction layers—from CUDA parallel kernels and cryptographic
+                  protocols to autonomous agent harnesses and reactive product engineering.
                 </p>
-              </HStack>
-              <figure className="project-visual">
-                <ProjectArt mode={project.visual} />
-                <HStack as="figcaption" justify="between" gap={4}>
-                  {project.labels.map((label) => (
-                    <p key={label}>{label}</p>
-                  ))}
-                </HStack>
-                <p className="visual-caption">
-                  {project.visual === "signal"
-                    ? "Local intelligence / contained context"
-                    : project.visual === "layers"
-                      ? "Boundaries, expressed as structure"
-                      : project.visual === "lanes"
-                        ? "One frame / many simultaneous operations"
-                        : "Discrete instructions / deliberate order"}
-                </p>
-              </figure>
-              <HStack
-                className="project-details"
-                justify="between"
-                align="start"
-                gap={10}
-              >
-                <VStack gap={5} className="project-story">
-                  <p className="project-statement">{project.description}</p>
-                  <p className="project-detail">{project.detail}</p>
-                </VStack>
-                <VStack className="project-meta" gap={6}>
-                  <p className="eyebrow">{project.technologies.join(" / ")}</p>
-                  {repo && (
-                    <p className="repo-metrics">
-                      {repo.stars} stars · {repo.forks} forks
-                      <br />
-                      Updated{" "}
-                      {new Date(repo.updatedAt).toLocaleDateString("en", {
-                        month: "short",
-                        year: "numeric",
-                        timeZone: "UTC",
-                      })}
-                    </p>
-                  )}
-                  <a
-                    className="primary-link"
-                    href={project.source}
-                    {...external}
-                  >
-                    View repository ↗
+
+                {/* Primary CTA Row */}
+                <div className="hero-cta-group">
+                  <a href={`mailto:${profile.email}`} className="primary-cta-btn">
+                    <Mail className="size-4" />
+                    <span>Get in touch</span>
                   </a>
-                </VStack>
-              </HStack>
-            </article>
-          );
-        })}
-      </section>
-      <section
-        id="stack"
-        className="capabilities section-pad"
-        data-chapter
-        aria-labelledby="stack-title"
-      >
-        {index("04", "Tools & disciplines")}
-        <h2 id="stack-title">
-          A practical stack.
-          <br />
-          <em>Shaped by the work.</em>
-        </h2>
-        <VStack className="skill-list" gap={0}>
-          {skills.map((skill, i) => (
-            <HStack
-              className="skill-row"
-              key={skill.group}
-              justify="between"
-              align="center"
-              gap={8}
-            >
-              <p className="eyebrow">0{i + 1}</p>
-              <h3>{skill.group}</h3>
-              <p>{skill.items.join(" / ")}</p>
-              <i aria-hidden="true">↗</i>
-            </HStack>
-          ))}
-        </VStack>
-      </section>
-      <section
-        className="education section-pad"
-        aria-labelledby="education-title"
-      >
-        {index("05", "Foundation")}
-        <HStack
-          className="education-body"
-          justify="between"
-          align="start"
-          gap={10}
-        >
-          <h2 id="education-title">
-            IIIT Delhi<i>↗</i>
-          </h2>
-          <VStack gap={5}>
-            <p>{education.institution}</p>
-            <p className="eyebrow">{education.programme}</p>
-            <p className="eyebrow">New Delhi, India / Currently studying</p>
-            <a className="small-link" href={education.source} {...external}>
-              Public profile ↗
-            </a>
-          </VStack>
-        </HStack>
-      </section>
-      <section
-        id="oss"
-        className="oss section-pad"
-        data-chapter
-        aria-labelledby="oss-title"
-      >
-        {index("06", "Beyond my repositories")}
-        <h2 id="oss-title">Built in the open.</h2>
-        <VStack className="oss-list" gap={0}>
-          {prs.map((pr) => (
-            <a className="oss-row" href={pr.url} {...external} key={pr.url}>
-              <p key="repo" className="eyebrow">
-                {pr.owner}/{pr.repository}
+                  <Link href="/resume" className="secondary-cta-btn">
+                    <FileText className="size-4" />
+                    <span>View Resume</span>
+                  </Link>
+                  <a
+                    href={profile.sources.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ghost-cta-btn"
+                  >
+                    <span>GitHub ↗</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Right Artistic Portrait Column */}
+              <div className="hero-portrait-col">
+                <PortraitVisual
+                  src={profile.avatar}
+                  alt="Anushk Kumar — Computer Science undergraduate at IIIT Delhi"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            02 OVERVIEW / SIGNALS
+            ==================================================== */}
+        <section id="overview" className="section-frame" aria-label="Personal overview">
+          <div className="section-container">
+            <OverviewConsole />
+          </div>
+        </section>
+
+        {/* ====================================================
+            03 ABOUT
+            ==================================================== */}
+        <section id="about" className="section-frame section-pad" aria-labelledby="about-heading">
+          <div className="section-container">
+            <div className="section-header-cluster">
+              <span className="eyebrow">03 // ABOUT</span>
+              <h2 id="about-heading" className="section-title">
+                Building software from <br />
+                <em>the hardware boundary up.</em>
+              </h2>
+            </div>
+
+            <div className="about-statements-grid">
+              {profile.bioStatements.map((statement, idx) => (
+                <div className="statement-card" key={idx}>
+                  <span className="statement-num">0{idx + 1}</span>
+                  <p className="statement-text">{statement}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            04 GITHUB ACTIVITY
+            ==================================================== */}
+        <section id="github-activity" className="section-frame section-pad" aria-labelledby="github-activity-title">
+          <div className="section-container">
+            <div className="section-header-cluster">
+              <div className="header-split-row">
+                <div>
+                  <span className="eyebrow">04 // GITHUB ACTIVITY</span>
+                  <h2 id="github-activity-title" className="section-title">
+                    The work leaves a <br />
+                    <em>verifiable trace.</em>
+                  </h2>
+                </div>
+                <a
+                  href={profile.sources.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="section-external-link"
+                >
+                  <span>Follow on GitHub</span>
+                  <ArrowUpRight className="size-4" />
+                </a>
+              </div>
+            </div>
+
+            <ContributionHeatmap
+              years={data.contributions}
+              profile={data.profile}
+              pullRequestsCount={data.pullRequests.length}
+            />
+          </div>
+        </section>
+
+        {/* ====================================================
+            05 CORE ENGINEERING SKILLS
+            ==================================================== */}
+        <section id="skills" className="section-frame section-pad" aria-labelledby="skills-heading">
+          <div className="section-container">
+            <div className="section-header-cluster">
+              <span className="eyebrow">05 // CORE DISCIPLINES</span>
+              <h2 id="skills-heading" className="section-title">
+                High-signal engineering <br />
+                <em>domains of practice.</em>
+              </h2>
+            </div>
+
+            <div className="core-skills-grid">
+              {coreSkills.map((skill, i) => (
+                <div
+                  className={`core-skill-card theme-${skill.color}`}
+                  key={skill.id}
+                  style={{ "--card-accent": skill.accentHex } as React.CSSProperties}
+                >
+                  <div className="skill-card-top">
+                    <span className="skill-num">0{i + 1}</span>
+                    <span className="skill-tagline">{skill.tagline}</span>
+                  </div>
+
+                  <h3 className="skill-group-name">{skill.group}</h3>
+                  <p className="skill-description">{skill.description}</p>
+
+                  <div className="skill-items-pills">
+                    {skill.items.map((item) => (
+                      <span className="skill-item-pill" key={item}>
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            06 TOOLS & TECHNOLOGIES
+            ==================================================== */}
+        <section id="technologies" className="section-frame section-pad" aria-labelledby="tech-heading">
+          <div className="section-container">
+            <div className="section-header-cluster">
+              <span className="eyebrow">06 // TECH STACK</span>
+              <h2 id="tech-heading" className="section-title">
+                Technologies I’ve <br />
+                <em>worked with.</em>
+              </h2>
+              <p className="section-lead">
+                Verified tools, runtimes, and frameworks derived from production codebases, research repos,
+                and course implementations.
               </p>
-              <h3 key="title">{pr.title}</h3>
-              <p key="date" className="eyebrow">
-                #{pr.number} · Merged{" "}
-                <time dateTime={pr.mergedAt}>
-                  {new Date(pr.mergedAt).toLocaleDateString("en", {
-                    month: "short",
-                    year: "numeric",
-                    timeZone: "UTC",
-                  })}
-                </time>{" "}
-                ↗
+            </div>
+
+            <TechCloud />
+          </div>
+        </section>
+
+        {/* ====================================================
+            07 EXPERIENCE
+            ==================================================== */}
+        <section id="experience" className="section-frame section-pad" aria-labelledby="experience-title">
+          <div className="section-container">
+            <div className="section-header-cluster">
+              <span className="eyebrow">07 // EXPERIENCE</span>
+              <h2 id="experience-title" className="section-title">
+                Industry &amp; research <br />
+                <em>track record.</em>
+              </h2>
+              <p className="section-lead">
+                From autonomous agent harnesses at Adobe to robotics telemetry and high-performance computing labs.
               </p>
-            </a>
-          ))}
-        </VStack>
-        <a
-          className="small-link"
-          href={`https://github.com/pulls?q=is%3Apr+author%3Aberserk-23115+is%3Amerged`}
-          {...external}
-        >
-          Explore merged contributions ↗
-        </a>
-      </section>
-      <footer id="contact" className="contact section-pad" data-chapter>
-        <HStack justify="between">
-          {index("07", "The next interesting problem")}
-          <p className="eyebrow">Complexity → clarity</p>
-        </HStack>
-        <CoreArt compact />
-        <h2>
-          Let’s make
-          <br />
-          something
-          <br />
-          <em>precise.</em>
-          <i>↗</i>
-        </h2>
-        <HStack
-          className="contact-bottom"
-          justify="between"
-          align="end"
-          gap={8}
-        >
-          <VStack gap={5}>
-            <p>Have a problem worth thinking through?</p>
-            <a className="contact-email" href={`mailto:${profile.email}`}>
-              {profile.email} ↗
-            </a>
-          </VStack>
-          <a className="small-link" href="#top">
-            Back to the beginning ↑
-          </a>
-        </HStack>
-        <HStack className="colophon" justify="between" gap={6} wrap="wrap">
-          <p className="eyebrow">© {new Date().getFullYear()} Anushk Kumar</p>
-          <p className="eyebrow">New Delhi / India</p>
-          <p className="eyebrow">Next.js / Motion / Three.js</p>
-          <a className="small-link" href={profile.sources.github} {...external}>
-            Source ↗
-          </a>
-        </HStack>
-      </footer>
-    </VStack>
+            </div>
+
+            <ExperienceTimeline />
+          </div>
+        </section>
+
+        {/* ====================================================
+            08 PUBLICATIONS / RESEARCH
+            ==================================================== */}
+        <section id="research" className="section-frame section-pad" aria-labelledby="research-heading">
+          <div className="section-container">
+            <div className="section-header-cluster">
+              <div className="header-split-row">
+                <div>
+                  <span className="eyebrow">08 // PUBLICATIONS &amp; RESEARCH</span>
+                  <h2 id="research-heading" className="section-title">
+                    Peer-reviewed research <br />
+                    <em>&amp; preprints.</em>
+                  </h2>
+                </div>
+                <span className="header-badge-pill">
+                  <Sparkles className="size-3.5" /> 2 Research Artifacts
+                </span>
+              </div>
+              <p className="section-lead">
+                Rigorous empirical benchmarks and multistage attention models tested on thousands of medical studies and forensic video benchmarks.
+              </p>
+            </div>
+
+            <div className="research-cards-grid">
+              {publications.map((pub, idx) => (
+                <ResearchCard key={pub.id} publication={pub} index={idx} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            09 SELECTED PROJECTS
+            ==================================================== */}
+        <section id="projects" className="section-frame section-pad" aria-labelledby="projects-heading">
+          <div className="section-container">
+            <div className="section-header-cluster">
+              <div className="header-split-row">
+                <div>
+                  <span className="eyebrow">09 // SELECTED PROJECTS</span>
+                  <h2 id="projects-heading" className="section-title">
+                    Featured engineering <br />
+                    <em>case studies.</em>
+                  </h2>
+                </div>
+                <Link href="/projects" className="section-external-link">
+                  <span>View all projects ({projects.length})</span>
+                  <ArrowRight className="size-4" />
+                </Link>
+              </div>
+              <p className="section-lead">
+                Curated studies in offline multimodal intelligence, zero-knowledge storage, and parallel video processors.
+              </p>
+            </div>
+
+            <div className="projects-cards-grid">
+              {projects.slice(0, 4).map((project, idx) => (
+                <ProjectCard key={project.slug} project={project} index={idx} />
+              ))}
+            </div>
+
+            <div className="section-footer-cta">
+              <Link href="/projects" className="explore-more-btn">
+                <span>Browse All {projects.length} Projects in Detail</span>
+                <ArrowRight className="size-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            10 OPEN SOURCE
+            ==================================================== */}
+        <section id="oss" className="section-frame section-pad" aria-labelledby="oss-heading">
+          <div className="section-container">
+            <div className="section-header-cluster">
+              <div className="header-split-row">
+                <div>
+                  <span className="eyebrow">10 // OPEN SOURCE</span>
+                  <h2 id="oss-heading" className="section-title">
+                    Contributing to <br />
+                    <em>distributed ecosystems.</em>
+                  </h2>
+                </div>
+                <Link href="/oss" className="section-external-link">
+                  <span>Explore all PRs</span>
+                  <ArrowRight className="size-4" />
+                </Link>
+              </div>
+              <p className="section-lead">
+                Merged contributions into external autonomous agent systems, Vertex AI tooling, and LangSmith tracing harnesses.
+              </p>
+            </div>
+
+            <div className="oss-preview-cards">
+              {ossGroups.map((group) => (
+                <div className="oss-preview-card" key={group.repo}>
+                  <div className="oss-prev-top">
+                    <div className="oss-prev-icon">
+                      <GitPullRequest className="size-4 text-sky-400" />
+                    </div>
+                    <div>
+                      <h3 className="oss-prev-name">
+                        {group.owner}/{group.repo}
+                      </h3>
+                      <span className="oss-prev-domain">{group.primaryDomain}</span>
+                    </div>
+                  </div>
+
+                  <p className="oss-prev-desc">{group.description}</p>
+
+                  <div className="oss-prev-highlights">
+                    <span className="oss-pill-counter">
+                      {group.pullRequests.length} Merged Pull Requests
+                    </span>
+                    <span className="oss-sample-title">
+                      Latest: #{group.pullRequests[0].number} {group.pullRequests[0].title}
+                    </span>
+                  </div>
+
+                  <Link href="/oss" className="oss-inspect-btn">
+                    <span>Inspect contributions</span>
+                    <ArrowRight className="size-3.5" />
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            11 CERTIFICATIONS & ACHIEVEMENTS
+            ==================================================== */}
+        <section id="credentials" className="section-frame section-pad" aria-labelledby="creds-heading">
+          <div className="section-container">
+            <div className="section-header-cluster">
+              <span className="eyebrow">11 // HONORS &amp; CERTIFICATIONS</span>
+              <h2 id="creds-heading" className="section-title">
+                Validated credentials <br />
+                <em>&amp; national awards.</em>
+              </h2>
+            </div>
+
+            <div className="creds-dual-grid">
+              {/* Certifications */}
+              <div className="creds-column">
+                <h3 className="sub-column-title">
+                  <Award className="size-4 text-sky-400" />
+                  <span>Specializations</span>
+                </h3>
+                <div className="certs-stack">
+                  {certifications.map((cert) => (
+                    <div className="cert-item-card" key={cert.id}>
+                      <div className="cert-top">
+                        <span className="cert-badge">{cert.issuer}</span>
+                        <a
+                          href={cert.verifyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cert-verify-chip"
+                        >
+                          Verify ↗
+                        </a>
+                      </div>
+                      <h4 className="cert-name">{cert.title}</h4>
+                      <p className="cert-summary">{cert.summary}</p>
+                      <span className="cert-credential-code">ID: {cert.credentialId}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Achievements */}
+              <div className="creds-column">
+                <h3 className="sub-column-title">
+                  <Sparkles className="size-4 text-amber-400" />
+                  <span>Honors &amp; Recognitions</span>
+                </h3>
+                <div className="achievements-stack">
+                  {achievements.map((ach) => (
+                    <div className="achievement-item-card" key={ach.id}>
+                      <div className="ach-top">
+                        <span className="ach-badge">{ach.badge}</span>
+                        <span className="ach-period">{ach.period}</span>
+                      </div>
+                      <h4 className="ach-title">{ach.title}</h4>
+                      <p className="ach-org">{ach.organization}</p>
+                      <p className="ach-detail">{ach.description}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            12 EDUCATION
+            ==================================================== */}
+        <section id="education" className="section-frame section-pad" aria-labelledby="edu-heading">
+          <div className="section-container">
+            <div className="education-card-surface">
+              <div className="edu-left-cluster">
+                <div className="edu-icon-wrap">
+                  <GraduationCap className="size-6 text-sky-400" />
+                </div>
+                <div>
+                  <span className="eyebrow">12 // ACADEMIC FOUNDATION</span>
+                  <h2 id="edu-heading" className="edu-institution">
+                    {education.institution}
+                  </h2>
+                  <p className="edu-degree">{education.degree}</p>
+                  <p className="edu-location">New Delhi, India · {education.period}</p>
+                </div>
+              </div>
+
+              <div className="edu-right-cluster">
+                <div className="edu-stat-box">
+                  <span className="stat-num">7.66</span>
+                  <span className="stat-lbl">CGPA (Till 6th Sem)</span>
+                </div>
+                <div className="edu-tag-cluster">
+                  <span className="edu-tag">Computer Vision</span>
+                  <span className="edu-tag">Systems Programming</span>
+                  <span className="edu-tag">Algorithms &amp; Complexity</span>
+                  <span className="edu-tag">Operating Systems</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            13 BLOG PREVIEW
+            ==================================================== */}
+        <section id="blog-preview" className="section-frame section-pad" aria-labelledby="blog-prev-heading">
+          <div className="section-container">
+            <div className="section-header-cluster">
+              <div className="header-split-row">
+                <div>
+                  <span className="eyebrow">13 // RECENT WRITING</span>
+                  <h2 id="blog-prev-heading" className="section-title">
+                    Systems notes &amp; <br />
+                    <em>architecture essays.</em>
+                  </h2>
+                </div>
+                <Link href="/blog" className="section-external-link">
+                  <span>View all essays</span>
+                  <ArrowRight className="size-4" />
+                </Link>
+              </div>
+            </div>
+
+            <div className="blog-preview-grid">
+              {blogPosts.slice(0, 2).map((post) => (
+                <article className="blog-preview-card" key={post.slug}>
+                  <div className="blog-prev-meta">
+                    <span className="blog-prev-tag">{post.category}</span>
+                    <span className="blog-prev-time">{post.readingTime}</span>
+                  </div>
+                  <h3 className="blog-prev-title">
+                    <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                  </h3>
+                  <p className="blog-prev-desc">{post.description}</p>
+                  <Link href={`/blog/${post.slug}`} className="blog-read-link">
+                    <span>Read Essay</span>
+                    <ArrowUpRight className="size-3.5" />
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
   );
 }
