@@ -1,9 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion, useReducedMotion } from "motion/react";
 import type { ContributionYear, GithubProfile } from "@/lib/github/types";
-import { GitPullRequest, GitFork, Calendar, Code } from "lucide-react";
+import { GitPullRequest, Calendar, Code } from "lucide-react";
 
 interface ContributionHeatmapProps {
   years: ContributionYear[];
@@ -33,8 +32,6 @@ export function ContributionHeatmap({
     x: number;
     y: number;
   } | null>(null);
-
-  const reducedMotion = useReducedMotion();
 
   const activeYearData = useMemo(() => {
     return years.find((y) => y.year === selectedYear) || years[0];

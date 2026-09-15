@@ -21,7 +21,8 @@ export function Navigation() {
 
   // Close mobile menu on route change
   useEffect(() => {
-    setIsMobileOpen(false);
+    const frame = window.requestAnimationFrame(() => setIsMobileOpen(false));
+    return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
   return (

@@ -25,7 +25,6 @@ import { getPortfolioData } from "@/lib/github/activity";
 import {
   ArrowRight,
   ArrowUpRight,
-  CheckCircle2,
   Award,
   GraduationCap,
   Sparkles,

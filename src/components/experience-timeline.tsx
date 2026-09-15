@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { primaryExperience, secondaryExperience, type ExperienceItem } from "@/data/experience";
+import { primaryExperience, secondaryExperience } from "@/data/experience";
 import { ChevronDown, Sparkles, Building2, ExternalLink } from "lucide-react";
 
 export function ExperienceTimeline() {
